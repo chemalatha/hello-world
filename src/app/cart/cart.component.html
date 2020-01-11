@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-10" *ngFor="let cart of cartItems">
+            <cart-item (productQuantity)="productOrderDetails($event)" [product]="cart"></cart-item>
+        </div>
+        <div class="col-sm-12 col-md-2">
+            <price-details [price]="price" [discount]="discount" [numOfItems]="numOfItems" ></price-details>
+        </div>
+    </div>
+
+</div>

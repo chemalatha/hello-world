@@ -1,0 +1,16 @@
+<div class='container'>
+    <div class='row'>
+        <div class='col-sm-12 col-md-2'>
+            <h3>Sort By</h3>
+        </div>
+        <div (click)="sortBy('desc')"  class='col-sm-12 col-md-2'>
+            <p><a [ngClass]='{"sort-order":sortOrder==="desc"}'>Price -- High Low</a></p>
+        </div>
+        <div (click)="sortBy('asc')"  [ngClass]='{"sort-order":sortOrder==="asc"}' class='col-sm-12 col-md-2'>
+                <p><a [ngClass]='{"sort-order":sortOrder==="asc"}'>Price -- Low High</a></p>
+        </div>
+        <div (click)="sortBy('discount')" [ngClass]='{"sort-order":sortOrder==="discount"}'  class='col-sm-12 col-md-2'>
+                <p><a [ngClass]='{"sort-order":sortOrder==="discount"}'>Discount</a></p>
+        </div>
+    </div>
+</div>

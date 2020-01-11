@@ -1,0 +1,9 @@
+<div class="thumbnail">
+    <img class="product-image" [src]="product.img_url" alt="image url">
+    <div class="caption">
+        <h3>{{product.name}}</h3>
+        <p><span>&#x20B9;{{product.price}}</span><span style="text-decoration: line-through;">900</span><span style="color:orange">{{product.discount}}%</span></p>
+        <p *ngIf="!addedToCart"><a class="btn btn-primary" (click)="addToCart(product.id)" role="button">Add to Cart</a> </p>
+        <p *ngIf="addedToCart"><a class="btn btn-primary" (click)="addToCart(product.id)" role="button">Remove</a> </p>
+    </div>
+</div>

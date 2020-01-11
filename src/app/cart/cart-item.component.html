@@ -1,0 +1,22 @@
+<div class="thumbnail">
+    <div class="row">
+        <div class="col-sm-3 col-md-3">
+            <img class="product-image" [src]="product.img_url" alt="image url">
+        </div>
+        <div class="col-sm-3 col-md-3">
+                <h3>{{product.name}}</h3>
+                <p><span>&#x20B9;{{product.price}}</span><span style="text-decoration: line-through;">900</span><span style="color:orange">{{product.discount}}%</span></p>
+            </div>
+        <div style="padding-top:30px" class="col-sm-3 col-md-3">
+                <form id="orderForm">
+                    <a  (click)="changeQuantity('add')" class="fa fa-plus" role="button"></a> 
+                    <input  (keyup)="quantityChange($event)" value={{quantity}} style="width:35px" type="text"/>
+                    <a  (click)="changeQuantity('minus')" class="fa fa-minus" role="button"></a>
+                </form>
+
+        </div>
+        <div style="padding-top:30px" class="col-sm-3 col-md-3">
+            <p><a  class="btn btn-primary" role="button">Remove</a> </p>
+        </div>
+    </div>
+</div>
