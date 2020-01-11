@@ -11,7 +11,7 @@ import {Component, Output,EventEmitter} from '@angular/core';
         }
         a{
             text-decoration:none;
-            color:white;
+            color:black;
         }
         `
     ]
