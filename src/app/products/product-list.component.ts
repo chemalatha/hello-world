@@ -35,8 +35,6 @@ export class ProductListComponent implements OnInit{
         
     }
     addToCartEvent(data){
-        // let addedProduct = this.products.filter((item)=>item.id==data.product.id);
-        // addedProduct[0].addedToCart = data.addToCart;
         this.addToCartService.updateCartCount(data.product);
     }
     sortProducts(sortOrder){
@@ -78,6 +76,7 @@ export class ProductListComponent implements OnInit{
         let tempProducts = this.products.filter((product)=>{
             return (product.price>min) && (product.price<=+max)
         });
+        console.log([tempProducts])
         this.products = tempProducts;
     }
     ngDestroy(){
