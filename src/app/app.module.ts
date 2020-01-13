@@ -12,7 +12,8 @@ import {
   SearchComponent,
   SortComponent,
   HeaderComponent,
-  AddToCartService
+  AddToCartService,
+  SearchService
 } from './common/index';
 import {
   CartComponent,
@@ -52,7 +53,8 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     ProductsService,
     AddToCartService,
-    CartService
+    CartService,
+    SearchService
   ],
   bootstrap: [ShoppingAppComponent]
 })

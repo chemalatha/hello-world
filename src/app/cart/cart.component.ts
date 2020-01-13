@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import { CartService } from './cart.service';
-import { IPRODUCT } from '../products';
+import { ICARTITEM } from './cart.model';
 
 @Component({
     templateUrl:'./cart.component.html',
@@ -13,35 +13,36 @@ import { IPRODUCT } from '../products';
     ]
 })
 export class CartComponent{
-    cartItems:Array<IPRODUCT>;
-    price:number = 0;
-    discount:number = 0;
-    numOfItems:number = 0;
+    cartItems:Array<ICARTITEM>;
+    totalPrice:number = 0;
+    totalDiscount:number = 0;
+    totalNumOfItems:number = 0;
     constructor(private cartService:CartService){
 
     }
     ngOnInit(){
         this.cartItems = this.cartService.getCartProducts();
-    }
-    productOrderDetails(data){
-        if(data.changeType == 'add'){
-            this.numOfItems += +(data.quantity);
-            this.price += this.getPriceOfProduct(data.productId,+(data.quantity));
-            this.discount += this.getDiscountOfProduct(data.productId,+(data.quantity));
-        } else{
-            this.numOfItems -= +(data.quantity);
-            this.price -= this.getPriceOfProduct(data.productId,+(data.quantity));
-            this.discount -= this.getDiscountOfProduct(data.productId,+(data.quantity));
-        }
+        this.getTotals();
 
     }
-    private getPriceOfProduct(id,quantity){
-        let product = this.cartService.getCartProductById(id)[0];
-        return (product.price * quantity);
+    productOrderDetails(data){
+        this.cartService.updateCartItems(data.product);
+        this.getTotals();
     }
-    private getDiscountOfProduct(id,quantity){
-        let product = this.cartService.getCartProductById(id)[0];
-        return (product.discount * quantity);
+    removeProductFromCart(data){
+        this.cartItems = this.cartService.removeProductById(data);
+        this.getTotals();
+    }
+    getTotals(){
+        this.totalNumOfItems = this.cartItems.reduce((sum,i)=>{
+            return sum+(i.quantity)
+        },0);
+        this.totalDiscount = this.cartItems.reduce((sum,i)=>{
+            return sum+(i.discount*i.quantity)
+        },0);
+        this.totalPrice = this.cartItems.reduce((sum,i)=>{
+            return sum+(i.price*i.quantity)
+        },0);
     }
 
 }

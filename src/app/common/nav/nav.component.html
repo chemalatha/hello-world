@@ -8,15 +8,18 @@
         <div class="navbar-header navbar-right">
           <ul class="nav navbar-nav">
             <li>
-              <cart-icon [cartCount]="cartCount"></cart-icon>
+                <search-icon (searchInput)="searchProducts($event)"></search-icon>
+            </li>
+            <li>
+              <cart-icon [routerLink]="['/cart']" [cartCount]="cartCount"></cart-icon>
             </li>
           </ul>
         </div>
-          <ul class="nav navbar-nav">
+          <!-- <ul class="nav navbar-nav">
             <li>
               <search-icon (click)="onClickSearch = !onClickSearch"></search-icon>
             </li>
-          </ul>        
+          </ul>         -->
       </div>
     </div>
   </div>

@@ -23,8 +23,8 @@ export class ProductComponent{
     constructor(private router:Router){
 
     }
-    addToCart(id){
-        this.addedToCart = !this.addedToCart; 
-        this.addToCartEvent.emit({id:id,addToCart:this.addedToCart});
+    addToCart(product,addedToCart){
+        product.addedToCart = addedToCart; 
+        this.addToCartEvent.emit({product});
     }
 }

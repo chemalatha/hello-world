@@ -1,6 +1,2 @@
-<form id="searchForm"  class="navbar-form navbar-right"  >
-    <a class="fa fa-search"></a>
-    <!-- <div class="form-group">
-        <input style="padding-left:10px" value="productSearch" (ngModel)="userName"   type="text" class="form-control" placeholder="Search Products" >
-    </div> -->
-</form>
+<a class="fa fa-search" (click)="onClickSearch = !onClickSearch"></a>
+<input style="padding-right:10px" (keyup)="searchProducts($event)" [hidden]="onClickSearch"   type="text"  placeholder="Search Products by Name" />

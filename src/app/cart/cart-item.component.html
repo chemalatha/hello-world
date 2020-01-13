@@ -10,13 +10,13 @@
         <div style="padding-top:30px" class="col-sm-3 col-md-3">
                 <form id="orderForm">
                     <a  (click)="changeQuantity('add')" class="fa fa-plus" role="button"></a> 
-                    <input  (keyup)="quantityChange($event)" value={{quantity}} style="width:35px" type="text"/>
+                    <input  (keyup)="quantityChange($event)" value={{product.quantity}} style="width:35px" type="text"/>
                     <a  (click)="changeQuantity('minus')" class="fa fa-minus" role="button"></a>
                 </form>
 
         </div>
         <div style="padding-top:30px" class="col-sm-3 col-md-3">
-            <p><a  class="btn btn-primary" role="button">Remove</a> </p>
+            <p><a  (click)="removeItemFromCart(product.id)" class="btn btn-primary" role="button">Remove</a> </p>
         </div>
     </div>
 </div>

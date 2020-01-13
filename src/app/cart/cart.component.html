@@ -1,11 +1,16 @@
 <div class="container">
-    <div class="row">
-        <div class="col-sm-12 col-md-10" *ngFor="let cart of cartItems">
-            <cart-item (productQuantity)="productOrderDetails($event)" [product]="cart"></cart-item>
+    <div *ngIf="totalNumOfItems>0" class="row">
+        <div class="col-sm-12 col-md-10" >
+            <div *ngFor="let cart of cartItems">
+                <cart-item (removeProduct)="removeProductFromCart($event)" (productQuantity)="productOrderDetails($event)" [product]="cart"></cart-item>
+            </div>
         </div>
-        <div class="col-sm-12 col-md-2">
-            <price-details [price]="price" [discount]="discount" [numOfItems]="numOfItems" ></price-details>
+        <div style="height:50vw" class="col-sm-12 col-md-2">
+            <price-details [price]="totalPrice" [discount]="totalDiscount" [numOfItems]="totalNumOfItems" ></price-details>
         </div>
+    </div>
+    <div *ngIf="totalNumOfItems === 0" class="row">
+        <h3>You dont have any cart items added to cart, please add one and proceed</h3>
     </div>
 
 </div>

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component,Output,EventEmitter} from '@angular/core';
 
 @Component({
     selector:'search-icon',
@@ -18,5 +18,10 @@ import {Component} from '@angular/core';
     ]
 })
 export class SearchComponent{
-
+    onClickSearch:boolean = true;
+    @Output() searchInput = new EventEmitter();
+    searchProducts(event){
+        console.log(event.target.value);
+        this.searchInput.emit(event.target.value);
+    }
 }

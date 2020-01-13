@@ -7,7 +7,7 @@
         <div style="height:50vw" class="col-md-2">
             <filter-by [minPrice]=100 [maxPrice]=1000 (sliderValueChanged)="filterProducts($event)"></filter-by>
         </div>
-        <div class="col-sm-6 col-md-2" *ngFor="let product of products">
+        <div class="col-sm-6 col-md-2" *ngFor="let product of searchedProducts">
             <product (addToCartEvent)="addToCartEvent($event)" [product]="product"></product>
         </div>
     </div>

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { ProductsService } from './shared/products.service';
 import { IPRODUCT } from './shared/product.model';
 import { AddToCartService } from '../common/addToCart.service';
+import { SearchService } from '../common/search.service';
 
 @Component({
     selector:'product-list',
@@ -9,14 +10,34 @@ import { AddToCartService } from '../common/addToCart.service';
 })
 export class ProductListComponent implements OnInit{
     products:IPRODUCT[];
-    constructor(private productsService:ProductsService,private addToCartService:AddToCartService){
+    searchedProducts:IPRODUCT[];
+    searchedText:string;
+    constructor(private productsService:ProductsService,private addToCartService:AddToCartService,
+                private searchService:SearchService){
 
     }
     ngOnInit(){
-        this.productsService.getProducts().subscribe((products)=>this.products = products);
+        this.searchService.searchInputChange$.subscribe(searchText=> {
+            this.searchedText=searchText;
+            if(this.searchedText.length>4){
+                this.searchedProducts = this.products.filter(product=>{
+                    return (product.name.indexOf(this.searchedText)!=-1)
+                })
+            } else{
+                this.searchedProducts = this.products;
+            }
+        });
+            this.productsService.getProducts().subscribe((products)=>{
+                this.products = products;
+                this.searchedProducts = products;
+            });
+
+        
     }
     addToCartEvent(data){
-        this.addToCartService.updateCartCount(data.id,data.addToCart);
+        // let addedProduct = this.products.filter((item)=>item.id==data.product.id);
+        // addedProduct[0].addedToCart = data.addToCart;
+        this.addToCartService.updateCartCount(data.product);
     }
     sortProducts(sortOrder){
         let sortFunc;
@@ -58,5 +79,7 @@ export class ProductListComponent implements OnInit{
             return (product.price>min) && (product.price<=+max)
         });
         this.products = tempProducts;
+    }
+    ngDestroy(){
     }
 }

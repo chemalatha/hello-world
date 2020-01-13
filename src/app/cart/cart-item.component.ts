@@ -1,5 +1,5 @@
 import {Component, Input, Output,EventEmitter} from '@angular/core';
-import { IPRODUCT } from '../products';
+import { ICARTITEM } from './cart.model';
 
 @Component({
     selector:'cart-item',
@@ -22,17 +22,27 @@ import { IPRODUCT } from '../products';
     ]
 })
 export class CartItemComponent{
-    @Input() product:IPRODUCT;
+    @Input() product:ICARTITEM;
     quantity:number =1;
     @Output() productQuantity = new EventEmitter();
-
+    @Output() removeProduct = new EventEmitter();
     quantityChange(event){
-        this.productQuantity.emit({quantity:event.target.value,productId:this.product.id});
+        this.productQuantity.emit({quantity:event.target.value,product:this.product,changeType:'input'});
 
     }
     changeQuantity(changeType){
-        this.quantity += (changeType)?1:-1;
-        this.productQuantity.emit({quantity:this.quantity,productId:this.product.id,changeType});
+        if(changeType == "add"){
+            this.product.quantity += 1;
+        } else{
+            if(this.product.quantity>0) this.product.quantity = this.product.quantity-1;
+        }
+        // this.product.quantity = (changeType==="add")?(this.product.quantity+1):(this.product.quantity-1)
+        // // this.product.quantity += (changeType)?1:-1;
+        this.productQuantity.emit({product:this.product,changeType});
+    }
+    removeItemFromCart(productId){
+        console.log(productId);
+        this.removeProduct.emit({id:productId});
     }
 
 }
