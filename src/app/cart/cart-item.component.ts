@@ -40,9 +40,9 @@ export class CartItemComponent{
         // // this.product.quantity += (changeType)?1:-1;
         this.productQuantity.emit({product:this.product,changeType});
     }
-    removeItemFromCart(productId){
-        console.log(productId);
-        this.removeProduct.emit({id:productId});
+    removeItemFromCart(product){
+        console.log(product);
+        this.removeProduct.emit({product:product});
     }
 
 }

@@ -57,7 +57,7 @@ export class CartService{
         return (cartItem[0])?cartItem[0].id:-1
     }
     removeProductById(id){
-        this.cartProducts.splice(id,1);
-        return this.cartProducts;
+        let pos = this.cartProducts.map((p)=> {return p.id }).indexOf(id.id);
+        return this.cartProducts.splice(pos,1);
     }
 }

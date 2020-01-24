@@ -31,7 +31,9 @@ export class CartComponent{
         this.getTotals();
     }
     removeProductFromCart(data){
-        this.cartItems = this.cartService.removeProductById(data);
+        // this.cartService.removeProductById(data);
+        data.product.addedToCart = false;
+        this.addToCartService.updateCartCount(data.product);
         this.getTotals();
         if(this.totalNumOfItems === 0){
             this.addToCartService.clearCartCount();
