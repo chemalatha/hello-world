@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import { CartService } from './cart.service';
 import { ICARTITEM } from './cart.model';
+import { AddToCartService } from '../common';
 
 @Component({
     templateUrl:'./cart.component.html',
@@ -17,7 +18,7 @@ export class CartComponent{
     totalPrice:number = 0;
     totalDiscount:number = 0;
     totalNumOfItems:number = 0;
-    constructor(private cartService:CartService){
+    constructor(private cartService:CartService,private addToCartService:AddToCartService){
 
     }
     ngOnInit(){
@@ -32,6 +33,9 @@ export class CartComponent{
     removeProductFromCart(data){
         this.cartItems = this.cartService.removeProductById(data);
         this.getTotals();
+        if(this.totalNumOfItems === 0){
+            this.addToCartService.clearCartCount();
+        }
     }
     getTotals(){
         this.totalNumOfItems = this.cartItems.reduce((sum,i)=>{

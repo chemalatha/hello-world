@@ -32,11 +32,17 @@ export class CartService{
         if(cartItem.addedToCart){
             this.cartProducts.push(cartItem)
         } else{
-            this.cartProducts.splice(cartItem.id,1);
+            let pos = this.cartProducts.map((p)=> {return p.id }).indexOf(cartItem.id);
+            this.cartProducts.splice(pos,1);
         }
     }
     getCartProducts(){
         return this.cartProducts;
+    }
+    checkIfAlreadyInCart(id:number):boolean{
+        let product = this.cartProducts.filter(p=>p.id === id);
+        if(product.length===1) return true;
+        else return false;
     }
     getCartProductById(id):ICARTITEM{
         let cartItem = this.cartProducts.filter(product => {

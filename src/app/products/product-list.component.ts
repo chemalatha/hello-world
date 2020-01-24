@@ -3,6 +3,7 @@ import { ProductsService } from './shared/products.service';
 import { IPRODUCT } from './shared/product.model';
 import { AddToCartService } from '../common/addToCart.service';
 import { SearchService } from '../common/search.service';
+import { CartService } from '../cart';
 
 @Component({
     selector:'product-list',
@@ -13,7 +14,7 @@ export class ProductListComponent implements OnInit{
     searchedProducts:IPRODUCT[];
     searchedText:string;
     constructor(private productsService:ProductsService,private addToCartService:AddToCartService,
-                private searchService:SearchService){
+                private searchService:SearchService, private cartService:CartService){
 
     }
     ngOnInit(){
@@ -30,6 +31,7 @@ export class ProductListComponent implements OnInit{
             this.productsService.getProducts().subscribe((products)=>{
                 this.products = products;
                 this.searchedProducts = products;
+                this.sortProducts('desc');
             });
 
         
@@ -40,19 +42,13 @@ export class ProductListComponent implements OnInit{
     sortProducts(sortOrder){
         let sortFunc;
         const ascPrice = (product1,product2)=>{
-            if(product1.price>product2.price) return -1;
-            else if(product1.price<product2.price) return 1;
-            else return 0;
+            return (product1.price-product2.price);
         }
         const descPrice = (product1,product2)=>{
-            if(product1.price>product2.price) return -1;
-            else if(product1.price<product2.price) return 1;
-            else return 0;
+            return (product2.price-product1.price);
         }
         const discount = (product1,product2)=>{
-            if(product1.discount>product2.discount) return -1;
-            else if(product1.discount<product2.discount) return 1;
-            else return 0;
+            return (product2.discount-product1.discount);
         }
         switch(sortOrder){
             case 'asc':
@@ -69,15 +65,16 @@ export class ProductListComponent implements OnInit{
         }
         let tempProducts = this.products.sort((product1,product2)=>{
             return sortFunc(product1,product2);
-        });
-        this.products = tempProducts;
+        });        
+        console.log([tempProducts]);
+        this.searchedProducts = tempProducts;
     }
     filterProducts({min,max}){
         let tempProducts = this.products.filter((product)=>{
             return (product.price>min) && (product.price<=+max)
         });
         console.log([tempProducts])
-        this.products = tempProducts;
+        this.searchedProducts = tempProducts;
     }
     ngDestroy(){
     }
